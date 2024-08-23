@@ -2,7 +2,8 @@
  * Autor: Felipe Matias de Freitas da Silva
  * E-mail: fmfs@cesar.school
  * Data de criação: 23/08/2024
- * Última modificação: [23/08/2024 | 15:19] Questão 1 c)
+ * Última modificação: [23/08/2024 | 16:34] Questão 1 d)
+ * Função de converter decimal para BCD conlcuída.
  */
 
 #include <stdio.h>
