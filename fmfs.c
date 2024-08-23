@@ -94,6 +94,48 @@ void converterParaHexa(int num){
     printf("\n\n");
 }
 
+void converterParaBCD(int num) {
+    char *bcdList[10] = {
+    "0000", // 0
+    "0001", // 1
+    "0010", // 2
+    "0011", // 3
+    "0100", // 4
+    "0101", // 5
+    "0110", // 6
+    "0111", // 7
+    "1000", // 8
+    "1001"  // 9
+    };
+
+    int original_num = num;
+
+    printf("\nNúmero decimal original: %d\n", num);
+
+    printf("\nPassos para conversão para BCD:\n");
+    
+    int cont = 0;
+    while (num > 0) {
+        num /= 10;
+        cont++;
+    }
+
+    num = original_num;
+    int array[cont];
+
+    for(int i = cont - 1; i >= 0; i--){
+        array[i] = num % 10;
+        num /= 10;
+    }
+    
+    printf("\n");
+    for(int i = 0; i < cont; i++){
+        printf("%s",bcdList[array[i]]);
+    }
+    printf("\n");
+}
+
+
 int main() {
     int opcao;
     int numero;
@@ -138,7 +180,8 @@ int main() {
                 }else if(numero == 4){
                     printf("Digite um número decimal: ");
                     scanf("%d", &numero);
-
+                    
+                    converterParaBCD(numero);
                 }else{
                     printf("Opção inválida!");
                 }
