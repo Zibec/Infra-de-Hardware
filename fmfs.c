@@ -2,8 +2,8 @@
  * Autor: Felipe Matias de Freitas da Silva
  * E-mail: fmfs@cesar.school
  * Data de criação: 23/08/2024
- * Última modificação: [23/08/2024 | 16:34] Questão 1 d)
- * Função de converter decimal para BCD conlcuída.
+ * Última modificação: [23/08/2024 | 20:27] Questão 2
+ * Função para representar número de base 10 para com sinal com 16 bits concluída
  */
 
 #include <stdio.h>
@@ -136,6 +136,65 @@ void converterParaBCD(int num) {
     printf("\n");
 }
 
+void complementoDois(int num){
+    
+    int binario[16] = {0};
+    int cont = 0;
+    int original_num = num;
+
+    if(num < 0) {
+        num = num * -1;
+    }
+    
+    while (num > 0) {
+        printf("\nNúmero atual: %d\n", num);
+        printf("\nResto da divisão por 2: %d\n\n", num % 2);
+        binario[cont] = num % 2;
+        num = num / 2;
+        cont++;
+    }
+
+    if(original_num >= 0){
+        printf("Binário representado por 16 bits: \n\n");
+        
+        for (int j = 15; j >= 0; j--){
+            printf("%d", binario[j]);
+        }
+    }else{
+        printf("Binário representado por 16 bits: \n\n");
+        
+        for (int j = 15; j >= 0; j--){
+            printf("%d", binario[j]);
+        }
+        
+        printf("\n\nSomando 1...\n\n");
+
+        for (int j = 0; j < 16; j++) {
+            
+            if(binario[j] == 0){
+                binario[j] = 1;
+            }else{
+                binario[j] = 0;
+            }
+        }
+
+        int aux = 1;
+        for (int j = 0; j < 16; j++) {
+            int soma = binario[j] + aux;
+            binario[j] = soma % 2;
+            aux = soma / 2;
+        }
+
+        printf("Resultado: \n\n");
+
+        for (int j = 15; j >= 0; j--){
+            printf("%d", binario[j]);
+        }
+    }
+    
+    printf("\n\n");
+
+}
 
 int main() {
     int opcao;
@@ -163,23 +222,23 @@ int main() {
                 scanf("%d", &numero);
 
                 if(numero == 1){
-                    printf("Digite um número decimal: ");
+                    printf("Digite um número em decimal: ");
                     scanf("%d", &numero);
 
                     converterParaBinario(numero);
                 }else if(numero == 2){
-                    printf("Digite um número decimal: ");
+                    printf("Digite um número em decimal: ");
                     scanf("%d", &numero);
 
                     converterParaOctal(numero);
                 }else if(numero == 3){
-                    printf("Digite um número decimal: ");
+                    printf("Digite um número em decimal: ");
                     scanf("%d", &numero);
 
                     converterParaHexa(numero);
 
                 }else if(numero == 4){
-                    printf("Digite um número decimal: ");
+                    printf("Digite um número em decimal: ");
                     scanf("%d", &numero);
                     
                     converterParaBCD(numero);
@@ -188,7 +247,10 @@ int main() {
                 }
                 break;
             case 2: 
+                printf("Digite um número em decimal: ");
+                scanf("%d", &numero);
 
+                complementoDois(numero);
                 break;
             case 3: 
 
@@ -197,7 +259,7 @@ int main() {
                 printf("\nFim do programa!\n");
                 break;
             default:
-                printf("Opção inválida! Por favor, escolha uma opção entre 1 e 5.\n");
+                printf("Opção inválida! Por favor, escolha uma opção entre 1 e 4.\n");
         }
     }
 
