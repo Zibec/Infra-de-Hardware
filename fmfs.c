@@ -2,7 +2,7 @@
  * Autor: Felipe Matias de Freitas da Silva
  * E-mail: fmfs@cesar.school
  * Data de criação: 23/08/2024
- * Última modificação: [23/08/2024  | 13:34]
+ * Última modificação: [23/08/2024 | 14:28] Questão 1 b)
  */
 
 #include <stdio.h>
@@ -23,20 +23,96 @@ void converterParaBinario(int num) {
         i++;
     }
 
-    printf("\nColetando de trás para frente. Passos concluídos. Número em binário:\n");
+    printf("\nColetando de trás para frente. Passos concluídos.\n");
     printf("\nBinário: ");
     for (int j = i - 1; j >= 0; j--)
         printf("%d", binario[j]);
     printf("\n");
 }
 
+void converterParaOctal(int num) {
+    int octal[32];
+    int i = 0;
+    int original_num = num;
+
+    printf("\nNúmero decimal original: %d\n", num);
+
+    printf("\nPassos para conversão para octal:\n");
+    while (num > 0) {
+        printf("\nNúmero atual: %d\n", num);
+        printf("\nResto da divisão por 8: %d\n", num % 8);
+        octal[i] = num % 8;
+        num = num / 8;
+        i++;
+    }
+
+    printf("\nColetando de trás para frente. Passos concluídos.\n");
+    printf("\nOctal: ");
+    for (int j = i - 1; j >= 0; j--)
+        printf("%d", octal[j]);
+    printf("\n");
+}
+
 int main() {
+    int opcao;
     int numero;
 
-    printf("Digite um número decimal: ");
-    scanf("%d", &numero);
+    while(opcao != 4) {
+        printf("=========================\n");
+        printf("Escolha a sua opção:\n\n");
+        printf("(1) Conversão de base 10 para: base 2, base 8, base 16 ou código BCD. \n");
+        printf("(2) Conversão de base 10 para base com sinal com 16 bits. \n");
+        printf("(3) Conversão de real em decimal para float e double. \n");
+        printf("(4) Sair do programa.\n\n--->");
 
-    converterParaBinario(numero);
+        scanf("%d", &opcao);
+ 
+        switch (opcao) {
+            case 1: 
+                printf("Escolha a sua opção: \n");
+
+                printf("(1) Converter decimal em binário.\n");
+                printf("(2) Converter decimal em octal.\n");
+                printf("(3) Converter decimal em hexadecimal.\n");
+                printf("(4) Converter decimal em BCD.\n\n--->");
+
+                scanf("%d", &numero);
+
+                if(numero == 1){
+                    printf("Digite um número decimal: ");
+                    scanf("%d", &numero);
+
+                    converterParaBinario(numero);
+                }else if(numero == 2){
+                    printf("Digite um número decimal: ");
+                    scanf("%d", &numero);
+
+                    converterParaOctal(numero);
+                }else if(numero == 3){
+                    printf("Digite um número decimal: ");
+                    scanf("%d", &numero);
+
+                }else if(numero == 4){
+                    printf("Digite um número decimal: ");
+                    scanf("%d", &numero);
+
+                }else{
+                    printf("Opção inválida!");
+                }
+                break;
+            case 2: 
+
+                break;
+            case 3: 
+
+                break;
+            case 4:
+                printf("\nFim do programa!\n");
+                break;
+            default:
+                printf("Opção inválida! Por favor, escolha uma opção entre 1 e 5.\n");
+        }
+    }
 
     return 0;
 }
