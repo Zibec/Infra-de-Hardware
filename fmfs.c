@@ -2,7 +2,7 @@
  * Autor: Felipe Matias de Freitas da Silva
  * E-mail: fmfs@cesar.school
  * Data de criação: 23/08/2024
- * Última modificação: [23/08/2024 | 14:28] Questão 1 b)
+ * Última modificação: [23/08/2024 | 15:19] Questão 1 c)
  */
 
 #include <stdio.h>
@@ -25,9 +25,10 @@ void converterParaBinario(int num) {
 
     printf("\nColetando de trás para frente. Passos concluídos.\n");
     printf("\nBinário: ");
-    for (int j = i - 1; j >= 0; j--)
+    for (int j = i - 1; j >= 0; j--){
         printf("%d", binario[j]);
-    printf("\n");
+    }
+    printf("\n\n");
 }
 
 void converterParaOctal(int num) {
@@ -48,9 +49,49 @@ void converterParaOctal(int num) {
 
     printf("\nColetando de trás para frente. Passos concluídos.\n");
     printf("\nOctal: ");
-    for (int j = i - 1; j >= 0; j--)
+    for (int j = i - 1; j >= 0; j--){
         printf("%d", octal[j]);
-    printf("\n");
+    }
+    printf("\n\n");
+
+}
+
+void converterParaHexa(int num){
+    int hexa[32];
+    int i = 0;
+    int original_num = num;
+
+    printf("\nNúmero decimal original: %d\n", num);
+
+    printf("\nPassos para conversão para octal:\n");
+    while(num > 0){
+        printf("\nNúmero atual: %d\n", num);
+        printf("\nResto da divisão por 16: %d\n", num % 16);
+        hexa[i] = num % 16;
+        num = num / 16;
+        i++;
+    }
+
+    printf("\nColetando de trás para frente. Passos concluídos.\n");
+    printf("\nHexadecimal: ");
+    for(int j = i - 1; j >= 0; j--){
+        if(hexa[j] == 10){
+            printf("A");
+        }else if(hexa[j] == 11){
+            printf("B");
+        }else if(hexa[j] == 12){
+            printf("C");
+        }else if(hexa[j] == 13){
+            printf("D");
+        }else if(hexa[j] == 14){
+            printf("E");
+        }else if(hexa[j] == 15){
+            printf("F");
+        }else{
+            printf("%d", hexa[j]);
+        }
+    }
+    printf("\n\n");
 }
 
 int main() {
@@ -91,6 +132,8 @@ int main() {
                 }else if(numero == 3){
                     printf("Digite um número decimal: ");
                     scanf("%d", &numero);
+
+                    converterParaHexa(numero);
 
                 }else if(numero == 4){
                     printf("Digite um número decimal: ");
