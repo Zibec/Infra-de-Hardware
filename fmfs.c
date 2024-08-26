@@ -277,8 +277,18 @@ void converterParaFloat(double num){
     }
     printf("\n\n");
 
-    int expoenteNotacaoCientifica = contador - 1;
+    int expoenteNotacaoCientifica = 0;
 
+    int k = 0;
+    if(intPart == 0){
+        do{
+            expoenteNotacaoCientifica--;
+            k++;
+        }while(binarioFracao[k] == 0);
+    }else{
+        expoenteNotacaoCientifica = contador - 1;
+    }
+    
     int expoente[8] = {0};
     int vies = expoenteNotacaoCientifica + 127;
     printf("Expoente com viés (127) + (%d): %d\n", expoenteNotacaoCientifica, vies);
@@ -317,6 +327,138 @@ void converterParaFloat(double num){
         printf("%d", arrayPosVirgula[i]);
     }
     printf("\n");
+}
+
+void converterParaDouble(double num){
+    double intPart, fracPart;
+    char sinal;
+
+    printf("Número original: %.5f\n", num);
+
+    if (num < 0) {
+        sinal = '1';
+        num = -num;  
+    } else {
+        sinal = '0';
+    }
+    printf("Sinal (1 bit): %c\n\n", sinal);
+
+    fracPart = modf(num, &intPart);
+    printf("Parte inteira: %.0f\n", intPart);
+    printf("Parte fracionária: %.5f\n\n", fracPart);
+
+    int binario[32] = {0};  // Array para armazenar a parte inteira em binário
+    int contador = 0;
+    int original_num = (int)intPart;
+    int bits = 31;
+
+    while (original_num > 0) {
+        binario[bits] = original_num % 2;
+        original_num = original_num / 2;
+        contador++;
+        bits--;
+    }
+
+    printf("Parte inteira em binário: ");
+    if (intPart == 0) {
+        printf("0\n");
+    } else {
+        for (int i = 32 - contador; i < 32; i++) {
+            printf("%d", binario[i]);
+        }
+        printf("\n");
+    }
+
+    int binarioFracao[64] = {0};  // Array para armazenar a parte fracionária em binário
+    int contadorFracao = 0;
+
+    while (fracPart > 0 && contadorFracao < 52) {
+        fracPart *= 2;
+        if (fracPart >= 1) {
+            binarioFracao[contadorFracao] = 1;
+            fracPart -= 1;
+        } else {
+            binarioFracao[contadorFracao] = 0;
+        }
+        contadorFracao++;
+    }
+
+    printf("Parte fracionária em binário: ");
+    for (int i = 0; i < contadorFracao; i++) {
+        printf("%d", binarioFracao[i]);
+    }
+    printf("\n\n");
+
+    int arrayPosVirgula[52] = {0};
+
+    int aux = contador - 1;  // Sem contar com o primeiro 1
+    for (int j = 0; j < contador - 1; j++) {
+        arrayPosVirgula[j] = binario[32 - aux];
+        aux--;
+    }
+
+    aux = contador - 1;
+    for (int j = 0; j < contadorFracao; j++) {
+        arrayPosVirgula[aux] = binarioFracao[j];
+        aux++;
+    }
+
+    printf("Mantissa normalizada: 1.");
+    for (int j = 0; j < 52; j++) {
+        printf("%d", arrayPosVirgula[j]);
+    }
+    printf("\n\n");
+
+    int expoenteNotacaoCientifica = 0;
+
+    int k = 0;
+    if(intPart == 0){
+        do{
+            expoenteNotacaoCientifica--;
+            k++;
+        }while(binarioFracao[k] == 0);
+    }else{
+        expoenteNotacaoCientifica = contador - 1;
+    }
+    
+    int expoente[11] = {0};
+    int vies = expoenteNotacaoCientifica + 1023;
+    printf("Expoente com viés (127) + (%d): %d\n", expoenteNotacaoCientifica, vies);
+
+    int contadorExpoente = 10;
+    while (vies > 0) {
+        expoente[contadorExpoente] = vies % 2;
+        vies = vies / 2;
+        contadorExpoente--;
+    }
+
+    printf("\nExpoente (11 bits): ");
+    for (int j = 0; j < 11; j++) {
+        printf("%d", expoente[j]);
+    }
+    printf("\n");
+
+    // Resumo final
+    printf("\nResumo:\n");
+    printf("Sinal: %c\n", sinal);
+    printf("Expoente: ");
+    for (int j = 0; j < 11; j++) {
+        printf("%d", expoente[j]);
+    }
+    printf("\nExpoente com viés: %d", expoenteNotacaoCientifica + 1023);
+    printf("\nFração: ");
+    for (int j = 0; j < 52; j++) {
+        printf("%d", arrayPosVirgula[j]);
+    }
+    printf("\nNúmero inteiro: %c ",sinal);
+    for(int i = 0; i < 11; i++){
+        printf("%d", expoente[i]);
+    }
+    printf(" ");
+    for(int i = 0; i < 52; i++){
+        printf("%d", arrayPosVirgula[i]);
+    }
+    
 }
 int main() {
     int opcao;
@@ -387,6 +529,10 @@ int main() {
 
                     converterParaFloat(num);
                 }else if(numero == 2){
+                    printf("Digite um número real: \n\n");
+                    scanf("%lf", &num);
+
+                    converterParaDouble(num);
 
                 }else{
                     printf("Opção inválida");
