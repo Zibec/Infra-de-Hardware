@@ -2,8 +2,8 @@
  * Autor: Felipe Matias de Freitas da Silva
  * E-mail: fmfs@cesar.school
  * Data de criação: 23/08/2024
- * Última modificação: [26/08/2024 | 00:48] Questão 3
- * Função para representar número de base 10 float concluida.
+ * Última modificação: [26/08/2024 | 07:16] Questão 3
+ * Função para representar número de base 10 double concluida.
  */
 
 #include <stdio.h>
