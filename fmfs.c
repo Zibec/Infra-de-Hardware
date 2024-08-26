@@ -458,6 +458,7 @@ void converterParaDouble(double num){
     for(int i = 0; i < 52; i++){
         printf("%d", arrayPosVirgula[i]);
     }
+    printf("\n");
     
 }
 int main() {
